@@ -4,6 +4,9 @@
 #include <vector>
 #include <chrono>
 
+#define MAX_INTERACTIONS 10
+#define MAX_ILS 2
+
 using namespace std;
 
 struct Solution {
@@ -14,7 +17,7 @@ struct Solution {
 double ** matrizAdj; // matriz de adjacencia
 int dimension; // quantidade total de vertices
 
-extern void gils(Solution &solution, int dimension, double **matrizAdj);
+extern void gils(Solution &solution, int maxInteractions, int maxILS, int dimension, double **matrizAdj);
 void printSolution(Solution solution, chrono::duration<double> executionTime);
 void printData();
 
@@ -26,7 +29,7 @@ int main(int argc, char** argv) {
   auto begin = chrono::system_clock::now();
 
   Solution solution;
-  gils(solution, dimension, matrizAdj);
+  gils(solution, MAX_INTERACTIONS, MAX_ILS, dimension, matrizAdj);
   auto end = chrono::system_clock::now();
   chrono::duration<double> executionTime = end - begin;
 
