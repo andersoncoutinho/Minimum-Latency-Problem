@@ -4,11 +4,11 @@
 using namespace std;
 
 struct Solution {
-  vector <int> circuit;
+  vector<int> circuit;
   double latency;
 };
 
-extern void construction(Solution &solution, double **matrizAdj, double alfa);
+extern void construction(Solution &solution, int dimension, double **matrizAdj);
 extern void rvnd(Solution &solution, double **matrizAdj);
 extern void perturb(Solution &solution, const Solution preSolution, double **matrizAdj);
 
@@ -16,16 +16,14 @@ void gils(Solution &bestSolution, int maxInteractions, int maxILS, int dimension
 
     bestSolution.latency = __DBL_MAX__;
 
-    Solution preSolution, posSolution;
+    for(int i = 0; i < maxInteractions; i++) {
+        Solution preSolution, posSolution;
 
-    for(size_t i = 0; i < maxInteractions; i++) {
-        
-        double alfa; // tem que ver como faz esse alfa, parece diferente do TSP. talvez possa ser
-                 // colocado direto dentro da construção
-        construction(preSolution, matrizAdj, alfa);
+        construction(preSolution, dimension, matrizAdj);
         posSolution = preSolution;
-
-        for(size_t iterIls = 0; i < maxILS; iterIls++) {
+        
+        
+        for(int iterIls = 0; i < maxILS; iterIls++) {
 
             rvnd(posSolution, matrizAdj);
 
@@ -36,10 +34,9 @@ void gils(Solution &bestSolution, int maxInteractions, int maxILS, int dimension
 
             perturb(posSolution, preSolution, matrizAdj);
         }
-    }
 
-    if(preSolution.latency < bestSolution.latency) {
-        bestSolution = preSolution;
-    }
-    
+        if(preSolution.latency < bestSolution.latency) {
+            bestSolution = preSolution;
+        }
+    }    
 }

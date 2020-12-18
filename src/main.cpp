@@ -4,24 +4,24 @@
 #include <vector>
 #include <chrono>
 
-#define MAX_INTERACTIONS 10
-#define MAX_ILS 2
+#define MAX_INTERACTIONS 10 //revisar esse valor
+#define MAX_ILS 2 //revisar esse valor
 
 using namespace std;
 
 struct Solution {
-  vector <int> circuit;
+  vector<int> circuit;
   double latency;
 };
 
-double ** matrizAdj; // matriz de adjacencia
+double **matrizAdj; // matriz de adjacencia
 int dimension; // quantidade total de vertices
 
 extern void gils(Solution &solution, int maxInteractions, int maxILS, int dimension, double **matrizAdj);
 void printSolution(Solution solution, chrono::duration<double> executionTime);
 void printData();
 
-int main(int argc, char** argv) {
+int main(int argc, char **argv) {
   
   srand(time(NULL));
   readData(argc, argv, &dimension, &matrizAdj);
@@ -32,6 +32,7 @@ int main(int argc, char** argv) {
   gils(solution, MAX_INTERACTIONS, MAX_ILS, dimension, matrizAdj);
   auto end = chrono::system_clock::now();
   chrono::duration<double> executionTime = end - begin;
+  
 
   printSolution(solution, executionTime);
 
@@ -41,8 +42,8 @@ int main(int argc, char** argv) {
 
 void printData() {
   cout << "dimension: " << dimension << endl;
-  for (size_t i = 1; i <= dimension; i++) {
-    for (size_t j = 1; j <= dimension; j++) {
+  for (int i = 1; i <= dimension; i++) {
+    for (int j = 1; j <= dimension; j++) {
       cout << matrizAdj[i][j] << " ";
     }
     cout << endl;
@@ -51,8 +52,8 @@ void printData() {
 
 void printSolution(Solution solution, chrono::duration<double> executionTime) {
   
-  for(auto i : solution.circuit) {
-    cout << solution.circuit[i] << ' ';
+  for(auto vertex : solution.circuit) {
+    cout << vertex << ' ';
   }
 
   cout << endl;
