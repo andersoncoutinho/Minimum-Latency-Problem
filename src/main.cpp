@@ -4,7 +4,7 @@
 #include <vector>
 #include <chrono>
 
-#define MAX_INTERACTIONS 10 //revisar esse valor
+#define MAX_INTERACTIONS 100 //revisar esse valor
 #define MAX_ILS 2 //revisar esse valor
 
 using namespace std;
@@ -20,6 +20,7 @@ int dimension; // quantidade total de vertices
 extern void gils(Solution &solution, int maxInteractions, int maxILS, int dimension, double **matrizAdj);
 void printSolution(Solution solution, chrono::duration<double> executionTime);
 void printData();
+void printTempo(vector<int> solution, double **matrizAdj);
 
 int main(int argc, char **argv) {
   
@@ -35,6 +36,8 @@ int main(int argc, char **argv) {
   
 
   printSolution(solution, executionTime);
+
+  printTempo(solution.circuit, matrizAdj);
 
   return 0;  
 
@@ -60,5 +63,17 @@ void printSolution(Solution solution, chrono::duration<double> executionTime) {
 
   cout << "Cost: " << solution.latency << endl;
   cout << "Time: " << executionTime.count() << endl; 
+
+}
+
+void printTempo(vector<int> solution, double **matrizAdj) {
+  
+  int tamanho = dimension;//solution.circuit.size()-1;
+  double tempo = 0;
+  for(int i = 0; i < dimension; i++, tamanho--) {
+    tempo += (tamanho * matrizAdj[solution[i]][solution[i+1]]);
+  }
+  cout << "tempo: " << tempo << endl;
+  getchar();
 
 }

@@ -53,7 +53,6 @@ void construction(Solution &solution, int dimension, double **matrizAdj) {
     circuit.push_back(1);
     
     solution.circuit = circuit;
-    solution.latency = calculateLatency(solution.circuit, matrizAdj);
 }
 
 bool Compare(InsertionInfo v1, InsertionInfo v2) {
