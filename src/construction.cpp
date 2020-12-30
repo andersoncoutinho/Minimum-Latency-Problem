@@ -15,7 +15,6 @@ struct InsertionInfo {
 };
 
 bool Compare(InsertionInfo v1, InsertionInfo v2);
-double calculateLatency(vector<int> circuit, double **matrizAdj);
 
 void construction(Solution &solution, int dimension, double **matrizAdj) {
 
@@ -40,14 +39,13 @@ void construction(Solution &solution, int dimension, double **matrizAdj) {
         }
 
         sort(insertionInfo.begin(), insertionInfo.end(), Compare);
-
+        
         int n = (int)(alfa * insertionInfo.size());
         int N = n != 0 ? (rand() % n) : 0; 
 
         circuit.push_back(candidates[insertionInfo[N].insertedVertex]);
         lastVertex = candidates[insertionInfo[N].insertedVertex];
         candidates.erase(candidates.begin() + insertionInfo[N].insertedVertex);
-
     }
 
     circuit.push_back(1);
@@ -57,12 +55,4 @@ void construction(Solution &solution, int dimension, double **matrizAdj) {
 
 bool Compare(InsertionInfo v1, InsertionInfo v2) {
     return v1.cost < v2.cost;
-}
-
-double calculateLatency(vector<int> circuit, double **matrizAdj) {
-    double cost = 0;
-    for(int i = 0; i < circuit.size()-1; i++) {
-        cost += matrizAdj[circuit[i]][circuit[i+1]];
-    }
-    return cost;
 }
