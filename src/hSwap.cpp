@@ -43,7 +43,7 @@ void hSwap(reOptimization &bestNeighbour, vector<vector<Subseq>> subseqInfo, Sol
                           +subseqInfo[j][i].width * (subseqInfo[DEPOT][i-1].time + matrizAdj[circuit[i-1]][circuit[j]])
                           +subseqInfo[j][i].cost
                           +subseqInfo[j+1][lastSwitchablevertex+1].width * (subseqInfo[DEPOT][i-1].time
-                                                                            +matrizAdj[circuit[j]][circuit[i-1]]
+                                                                            +matrizAdj[circuit[i-1]][circuit[j]]
                                                                             +subseqInfo[j][i].time
                                                                             +matrizAdj[circuit[i]][circuit[j+1]])
                           +subseqInfo[j+1][lastSwitchablevertex+1].cost

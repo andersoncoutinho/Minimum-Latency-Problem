@@ -40,7 +40,7 @@ void rvnd(Solution &solution, vector<vector<Subseq>> &subseInfo, double **matriz
     int aux;
 
     while(!neighbourhoods.empty()) {
-        vector<int> circuit = solution.circuit;
+        
         int neighbourhood = rand() % neighbourhoods.size();
 
         switch(neighbourhoods[neighbourhood]) {
@@ -48,175 +48,146 @@ void rvnd(Solution &solution, vector<vector<Subseq>> &subseInfo, double **matriz
                 opt2(bestNeighbour, subseInfo, solution, matrizAdj);
 
                 if(bestNeighbour.cost < solution.latency) {
-                    reverse(circuit.begin() + bestNeighbour.firstvertex, 
-                            circuit.begin() + bestNeighbour.secondvertex+1);
+                    reverse(solution.circuit.begin() + bestNeighbour.firstvertex, 
+                            solution.circuit.begin() + bestNeighbour.secondvertex+1);
 
                     solution.latency = bestNeighbour.cost;
 
                     fillNeighbourhoods(neighbourhoods);
-                    fillSubseqInfo(circuit, matrizAdj, subseInfo, bestNeighbour.firstvertex);
+                    fillSubseqInfo(solution.circuit, matrizAdj, subseInfo, bestNeighbour.firstvertex);
                     
                 } else {
-
                     neighbourhoods.erase(neighbourhoods.begin() + neighbourhood);
-
                 }
-
                 break;
             case 2:
-
                 hSwap(bestNeighbour, subseInfo, solution, matrizAdj);
 
                 if(bestNeighbour.cost < solution.latency) {
 
-                    aux = circuit[bestNeighbour.firstvertex];
-                    circuit[bestNeighbour.firstvertex] = circuit[bestNeighbour.secondvertex];
-                    circuit[bestNeighbour.secondvertex] = aux;    
+                    aux = solution.circuit[bestNeighbour.firstvertex];
+                    solution.circuit[bestNeighbour.firstvertex] = solution.circuit[bestNeighbour.secondvertex];
+                    solution.circuit[bestNeighbour.secondvertex] = aux;    
 
                     solution.latency = bestNeighbour.cost;
 
                     fillNeighbourhoods(neighbourhoods);
-                    fillSubseqInfo(circuit, matrizAdj, subseInfo, bestNeighbour.firstvertex);
+                    fillSubseqInfo(solution.circuit, matrizAdj, subseInfo, bestNeighbour.firstvertex);
 
                 } else {
-
                     neighbourhoods.erase(neighbourhoods.begin() + neighbourhood);
-
                 }
-
                 break;
-
             case 3:
-
                 reInsertion(bestNeighbour, subseInfo, solution, matrizAdj);
 
                 if(bestNeighbour.cost < solution.latency) {
 
-                    aux = circuit[bestNeighbour.firstvertex];
+                    aux = solution.circuit[bestNeighbour.firstvertex];
 
-                    circuit.erase(circuit.begin() + bestNeighbour.firstvertex);
+                    solution.circuit.erase(solution.circuit.begin() + bestNeighbour.firstvertex);
         
-                    circuit.insert(circuit.begin()+bestNeighbour.secondvertex, aux);
+                    solution.circuit.insert(solution.circuit.begin()+bestNeighbour.secondvertex, aux);
 
                     solution.latency = bestNeighbour.cost;
 
                     fillNeighbourhoods(neighbourhoods);
 
-                    if(bestNeighbour.firstvertex < bestNeighbour.secondvertex) {
-                        
-                        fillSubseqInfo(circuit, matrizAdj, subseInfo, bestNeighbour.firstvertex);
-
+                    if(bestNeighbour.firstvertex < bestNeighbour.secondvertex) {                        
+                        fillSubseqInfo(solution.circuit, matrizAdj, subseInfo, bestNeighbour.firstvertex);
                     } else {
-                        fillSubseqInfo(circuit, matrizAdj, subseInfo, bestNeighbour.secondvertex);
+                        fillSubseqInfo(solution.circuit, matrizAdj, subseInfo, bestNeighbour.secondvertex);
                     }
-                                        
 
                 } else {
-
                     neighbourhoods.erase(neighbourhoods.begin() + neighbourhood);
-
                 }
-
                 break;
             case 4:
-
                 orOpt2(bestNeighbour, subseInfo, solution, matrizAdj);
 
                 if(bestNeighbour.cost < solution.latency) {
 
                     if(bestNeighbour.firstvertex > bestNeighbour.secondvertex) {
 
-                        circuit.insert(circuit.begin()+bestNeighbour.secondvertex,
-                                                circuit[bestNeighbour.firstvertex+1]);
+                        solution.circuit.insert(solution.circuit.begin()+bestNeighbour.secondvertex,
+                                                solution.circuit[bestNeighbour.firstvertex+1]);
                         
-                        circuit.insert(circuit.begin()+bestNeighbour.secondvertex,
-                                                circuit[bestNeighbour.firstvertex+1]);
+                        solution.circuit.insert(solution.circuit.begin()+bestNeighbour.secondvertex,
+                                                solution.circuit[bestNeighbour.firstvertex+1]);
 
-                        circuit.erase(circuit.begin() + bestNeighbour.firstvertex+2);
-                        circuit.erase(circuit.begin() + bestNeighbour.firstvertex+2);
+                        solution.circuit.erase(solution.circuit.begin() + bestNeighbour.firstvertex+2);
+                        solution.circuit.erase(solution.circuit.begin() + bestNeighbour.firstvertex+2);
                         
                         
                     } else {
-                        circuit.insert(circuit.begin()+bestNeighbour.secondvertex+1, 
-                                                    circuit.begin() +  bestNeighbour.firstvertex,
-                                                    circuit.begin() +  bestNeighbour.firstvertex+2);
+                        solution.circuit.insert(solution.circuit.begin()+bestNeighbour.secondvertex+1, 
+                                                    solution.circuit.begin() +  bestNeighbour.firstvertex,
+                                                    solution.circuit.begin() +  bestNeighbour.firstvertex+2);
                                                 
-                        circuit.erase(circuit.begin() + bestNeighbour.firstvertex);
-                        circuit.erase(circuit.begin() + bestNeighbour.firstvertex);
+                        solution.circuit.erase(solution.circuit.begin() + bestNeighbour.firstvertex);
+                        solution.circuit.erase(solution.circuit.begin() + bestNeighbour.firstvertex);
                     }
 
                     solution.latency = bestNeighbour.cost;                                        
                     
                     fillNeighbourhoods(neighbourhoods);                    
                     
-                    if(bestNeighbour.firstvertex < bestNeighbour.secondvertex) {
-                        
-                        fillSubseqInfo(circuit, matrizAdj, subseInfo, bestNeighbour.firstvertex);
-
+                    if(bestNeighbour.firstvertex < bestNeighbour.secondvertex) {                        
+                        fillSubseqInfo(solution.circuit, matrizAdj, subseInfo, bestNeighbour.firstvertex);
                     } else {
-
-                        fillSubseqInfo(circuit, matrizAdj, subseInfo, bestNeighbour.secondvertex);
+                        fillSubseqInfo(solution.circuit, matrizAdj, subseInfo, bestNeighbour.secondvertex);
                     }
 
                 } else {
-
                     neighbourhoods.erase(neighbourhoods.begin() + neighbourhood);
-
                 }
-
                 break;
             case 5:
-
                 orOpt3(bestNeighbour, subseInfo, solution, matrizAdj);
 
                 if(bestNeighbour.cost < solution.latency) {
 
                     if(bestNeighbour.firstvertex > bestNeighbour.secondvertex) {  
                             
-                        circuit.insert(circuit.begin()+bestNeighbour.secondvertex,
-                                                circuit[bestNeighbour.firstvertex+2]);
+                        solution.circuit.insert(solution.circuit.begin()+bestNeighbour.secondvertex,
+                                                solution.circuit[bestNeighbour.firstvertex+2]);
                         
-                        circuit.insert(circuit.begin()+bestNeighbour.secondvertex,
-                                                circuit[bestNeighbour.firstvertex+2]);
+                        solution.circuit.insert(solution.circuit.begin()+bestNeighbour.secondvertex,
+                                                solution.circuit[bestNeighbour.firstvertex+2]);
                         
-                        circuit.insert(circuit.begin()+bestNeighbour.secondvertex,
-                                                circuit[bestNeighbour.firstvertex+2]);
+                        solution.circuit.insert(solution.circuit.begin()+bestNeighbour.secondvertex,
+                                                solution.circuit[bestNeighbour.firstvertex+2]);
                         
-                        circuit.erase(circuit.begin() + bestNeighbour.firstvertex+3);
-                        circuit.erase(circuit.begin() + bestNeighbour.firstvertex+3);
-                        circuit.erase(circuit.begin() + bestNeighbour.firstvertex+3);
+                        solution.circuit.erase(solution.circuit.begin() + bestNeighbour.firstvertex+3);
+                        solution.circuit.erase(solution.circuit.begin() + bestNeighbour.firstvertex+3);
+                        solution.circuit.erase(solution.circuit.begin() + bestNeighbour.firstvertex+3);
 
                     } else {
-                        circuit.insert(circuit.begin()+bestNeighbour.secondvertex+1, 
-                                                    circuit.begin() +  bestNeighbour.firstvertex,
-                                                    circuit.begin() +  bestNeighbour.firstvertex+3);
+                        solution.circuit.insert(solution.circuit.begin()+bestNeighbour.secondvertex+1, 
+                                                    solution.circuit.begin() +  bestNeighbour.firstvertex,
+                                                    solution.circuit.begin() +  bestNeighbour.firstvertex+3);
                                                            
-                        circuit.erase(circuit.begin() + bestNeighbour.firstvertex);
-                        circuit.erase(circuit.begin() + bestNeighbour.firstvertex);
-                        circuit.erase(circuit.begin() + bestNeighbour.firstvertex);
+                        solution.circuit.erase(solution.circuit.begin() + bestNeighbour.firstvertex);
+                        solution.circuit.erase(solution.circuit.begin() + bestNeighbour.firstvertex);
+                        solution.circuit.erase(solution.circuit.begin() + bestNeighbour.firstvertex);
                     }
 
                     solution.latency = bestNeighbour.cost;
 
                     fillNeighbourhoods(neighbourhoods);
                     
-                    if(bestNeighbour.firstvertex < bestNeighbour.secondvertex) {
-                        
-                        fillSubseqInfo(circuit, matrizAdj, subseInfo, bestNeighbour.firstvertex);
-
+                    if(bestNeighbour.firstvertex < bestNeighbour.secondvertex) {                        
+                        fillSubseqInfo(solution.circuit, matrizAdj, subseInfo, bestNeighbour.firstvertex);
                     } else {
-                        fillSubseqInfo(circuit, matrizAdj, subseInfo, bestNeighbour.secondvertex);
+                        fillSubseqInfo(solution.circuit, matrizAdj, subseInfo, bestNeighbour.secondvertex);
                     }
 
                 } else {
-
                     neighbourhoods.erase(neighbourhoods.begin() + neighbourhood);
-
                 }
-
                 break;
         }
-        solution.circuit = circuit;
     }
 }
 

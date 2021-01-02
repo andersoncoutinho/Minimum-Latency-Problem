@@ -68,18 +68,18 @@ void orOpt3(reOptimization &bestNeighbour, vector<vector<Subseq>> subseqInfo, So
         for(int j = i - 1; j > 0; j--) {
 
             cost = subseqInfo[DEPOT][j-1].cost
-                    + 2 * (subseqInfo[0][j-1].time
-                            +matrizAdj[circuit[j-1]][circuit[i]])
+                    + 3 * (subseqInfo[0][j-1].time + matrizAdj[circuit[j-1]][circuit[i]])
                     +subseqInfo[i][i+2].cost
-                    +subseqInfo[j][i+3].width * (subseqInfo[0][j-1].time
+                    +subseqInfo[j][i-1].width * (subseqInfo[0][j-1].time
                                                     +matrizAdj[circuit[j-1]][circuit[i]]
-                                                    +matrizAdj[circuit[i+2]][circuit[j]]
-                                                    +subseqInfo[j][i+3].time)
-                    +subseqInfo[j][i+3].cost
+                                                    +subseqInfo[i][i+2].time
+                                                    +matrizAdj[circuit[i+2]][circuit[j]])
+                    +subseqInfo[j][i-1].cost
                     +subseqInfo[i+3][lastSwitchablevertex+1].width * (subseqInfo[0][j-1].time
                                                                         +matrizAdj[circuit[j-1]][circuit[i]]
+                                                                        +subseqInfo[i][i+2].time
                                                                         +matrizAdj[circuit[i+2]][circuit[j]]
-                                                                        +subseqInfo[j][i+3].time
+                                                                        +subseqInfo[j][i-1].time
                                                                         +matrizAdj[circuit[i-1]][circuit[i+3]])
                     +subseqInfo[i+3][lastSwitchablevertex+1].cost
 
