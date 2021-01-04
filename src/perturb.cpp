@@ -9,7 +9,7 @@ struct Solution {
     double latency;
 };
 
-int perturb(Solution &solution, int dimension, double **matrizAdj) {
+void perturb(Solution &solution, int dimension, double **matrizAdj) {
 	
 	double cost;
 	int positions[4];
@@ -51,5 +51,4 @@ int perturb(Solution &solution, int dimension, double **matrizAdj) {
 
     solution.circuit = circuit;
 
-    return positions[0];
 }

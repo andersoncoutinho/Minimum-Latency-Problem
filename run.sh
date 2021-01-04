@@ -9,10 +9,10 @@ for instance in instances/*; do
 	echo $instance >> ./benchmark/bm.txt
 
 	echo "Running $instance"
-	echo "Instance $k of 23" 
+	echo "Instance $k of 22" 
 
 	for i in {1..10}; do
-		./mlp ${instance} | grep 'Custo\|Tempo' | awk "{print $1}" >> ./benchmark/bm.txt
+		./mlp ${instance} | grep 'Cost\|Time' | awk "{print $1}" >> ./benchmark/bm.txt
 	done
 
 	k=$(($k + 1))

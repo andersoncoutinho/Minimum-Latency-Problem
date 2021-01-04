@@ -24,7 +24,6 @@ struct reOptimization {
 };
 
 void fillNeighbourhoods(vector<int> &);
-void printTempo(vector<int>, double **);
 extern void opt2(reOptimization &, vector<vector<Subseq>>, Solution &, double **);
 extern void hSwap(reOptimization &, vector<vector<Subseq>>, Solution &, double **);
 extern void reInsertion(reOptimization &, vector<vector<Subseq>>, Solution &, double **);

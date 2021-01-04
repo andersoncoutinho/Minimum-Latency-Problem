@@ -19,7 +19,7 @@ struct Subseq {
 extern void construction(Solution &, int, double **);
 extern void rvnd(Solution &, vector<vector<Subseq>> &, double **);
 extern void fillSubseqInfo(vector<int> &, double **, vector<vector<Subseq>> &, int);
-extern int perturb(Solution &, int, double **);
+extern void perturb(Solution &, int, double **);
 
 void gils(Solution &bestSolution, int maxIteractions, int maxILS, int dimension, double **matrizAdj) {
         

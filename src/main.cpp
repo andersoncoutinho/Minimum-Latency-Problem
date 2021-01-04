@@ -34,7 +34,6 @@ int main(int argc, char **argv) {
   chrono::duration<double> executionTime = end - begin;
 
   printSolution(solution, executionTime);
-  printTempo(solution.circuit, matrizAdj);
 
   return 0;  
 }
@@ -47,19 +46,5 @@ void printSolution(Solution solution, chrono::duration<double> executionTime) {
   cout << endl;
   
   printf("Cost: %.0lf\n", solution.latency);
-  //cout << "Cost: " << solution.latency << endl;
-  cout << "Time: " << executionTime.count() << endl; 
-}
-
-void printTempo(vector<int> solution, double **matrizAdj) {
-  
-  int tamanho = dimension;
-  double tempo = 0;
-
-  for(int i = 0; i < dimension; i++, tamanho--) {
-    tempo += (tamanho * matrizAdj[solution[i]][solution[i+1]]);
-  }
-
-  printf("Tempo: %.0lf\n", tempo);
-  //cout << "tempo: " << tempo << endl;
+  cout << "Execution Time: " << executionTime.count() << endl; 
 }
