@@ -45,8 +45,9 @@ void printSolution(Solution solution, chrono::duration<double> executionTime) {
     cout << vertex << ' ';
   }
   cout << endl;
-
-  cout << "Cost: " << solution.latency << endl;
+  
+  printf("Cost: %.0lf\n", solution.latency);
+  //cout << "Cost: " << solution.latency << endl;
   cout << "Time: " << executionTime.count() << endl; 
 }
 
@@ -59,5 +60,6 @@ void printTempo(vector<int> solution, double **matrizAdj) {
     tempo += (tamanho * matrizAdj[solution[i]][solution[i+1]]);
   }
 
-  cout << "tempo: " << tempo << endl;
+  printf("Tempo: %.0lf\n", tempo);
+  //cout << "tempo: " << tempo << endl;
 }

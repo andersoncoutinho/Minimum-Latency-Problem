@@ -1,1 +1,1 @@
-This program is still being implemented
+This algorithm is still being implemented
