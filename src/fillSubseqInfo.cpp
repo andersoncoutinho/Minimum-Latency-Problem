@@ -40,9 +40,8 @@ void fillSubseqInfo(vector<int> &solution, double **matrizAdj, vector<vector<Sub
     for(int i = lastVertex; i > DEPOT; i--) {
         for(int j = i-1; j >= DEPOT; j--) {
             subseqInfo[i][j].width = subseqInfo[i][j+1].width + subseqInfo[j][j].width;
-            subseqInfo[i][j].time = subseqInfo[i][j+1].time + matrizAdj[solution[j]][solution[i]];
-            subseqInfo[i][j].cost = subseqInfo[i][j+1].cost +subseqInfo[i][j+1].time + matrizAdj[solution[j]][solution[i]];
+            subseqInfo[i][j].time = subseqInfo[i][j+1].time + matrizAdj[solution[j+1]][solution[j]];
+            subseqInfo[i][j].cost = subseqInfo[i][j+1].cost +subseqInfo[i][j+1].time + matrizAdj[solution[j+1]][solution[j]];
         }
-    }
-    
+    }    
 }
