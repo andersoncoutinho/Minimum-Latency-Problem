@@ -40,8 +40,7 @@ void orOpt2(reOptimization &bestNeighbour, vector<vector<Subseq>> subseqInfo, So
                     +subseqInfo[i+2][j].width * (subseqInfo[DEPOT][i-1].time
                                                     +matrizAdj[circuit[i-1]][circuit[i+2]])
                     +subseqInfo[i+2][j].cost
-                    //arrumar esse número mágico
-                    + 2 * (subseqInfo[0][i-1].time
+                    + subseqInfo[i][i+1].width * (subseqInfo[0][i-1].time
                             +matrizAdj[circuit[i-1]][circuit[i+2]]
                             +subseqInfo[i+2][j].time
                             +matrizAdj[circuit[j]][circuit[i]])
@@ -68,7 +67,7 @@ void orOpt2(reOptimization &bestNeighbour, vector<vector<Subseq>> subseqInfo, So
         for(int j = i - 1; j > 0; j--) {
 
             cost = subseqInfo[DEPOT][j-1].cost
-                    + 2 * (subseqInfo[0][j-1].time + matrizAdj[circuit[j-1]][circuit[i]])
+                    + subseqInfo[i][i+1].width * (subseqInfo[0][j-1].time + matrizAdj[circuit[j-1]][circuit[i]])
                     +subseqInfo[i][i+1].cost
                     +subseqInfo[j][i-1].width * (subseqInfo[0][j-1].time
                                                     +matrizAdj[circuit[j-1]][circuit[i]]
