@@ -3,7 +3,6 @@
 #include <algorithm>
 #include "../Headers/functions.h"
 
-
 #define DEPOT 0
 
 void rvnd(Solution &solution, vector<vector<Subseq>> &subseInfo, double **matrizAdj) {
@@ -11,10 +10,9 @@ void rvnd(Solution &solution, vector<vector<Subseq>> &subseInfo, double **matriz
     vector<int> neighbourhoods;
     fillNeighbourhoods(neighbourhoods);
     reOptimization bestNeighbour;
-    int aux;
 
     while(!neighbourhoods.empty()) {
-        
+        bestNeighbour.cost = solution.latency;
         int neighbourhood = rand() % neighbourhoods.size();
 
         switch(neighbourhoods[neighbourhood]) {
@@ -22,14 +20,11 @@ void rvnd(Solution &solution, vector<vector<Subseq>> &subseInfo, double **matriz
                 opt2(bestNeighbour, subseInfo, solution, matrizAdj);
 
                 if(bestNeighbour.cost < solution.latency) {
-                    reverse(solution.circuit.begin() + bestNeighbour.firstvertex, 
-                            solution.circuit.begin() + bestNeighbour.secondvertex+1);
 
-                    solution.latency = bestNeighbour.cost;
-
+                    opt2Move(solution, bestNeighbour);                    
                     fillNeighbourhoods(neighbourhoods);
-                    fillSubseqInfo(solution.circuit, matrizAdj, subseInfo, bestNeighbour.firstvertex);
-                    
+                    fillSubseqInfo(solution.circuit, matrizAdj, subseInfo, bestNeighbour.firstvertex);    
+
                 } else {
                     neighbourhoods.erase(neighbourhoods.begin() + neighbourhood);
                 }
@@ -39,12 +34,7 @@ void rvnd(Solution &solution, vector<vector<Subseq>> &subseInfo, double **matriz
 
                 if(bestNeighbour.cost < solution.latency) {
 
-                    aux = solution.circuit[bestNeighbour.firstvertex];
-                    solution.circuit[bestNeighbour.firstvertex] = solution.circuit[bestNeighbour.secondvertex];
-                    solution.circuit[bestNeighbour.secondvertex] = aux;    
-
-                    solution.latency = bestNeighbour.cost;
-
+                    hSwapMove(solution, bestNeighbour);
                     fillNeighbourhoods(neighbourhoods);
                     fillSubseqInfo(solution.circuit, matrizAdj, subseInfo, bestNeighbour.firstvertex);
 
@@ -57,22 +47,11 @@ void rvnd(Solution &solution, vector<vector<Subseq>> &subseInfo, double **matriz
 
                 if(bestNeighbour.cost < solution.latency) {
 
-                    aux = solution.circuit[bestNeighbour.firstvertex];
-
-                    solution.circuit.erase(solution.circuit.begin() + bestNeighbour.firstvertex);
-        
-                    solution.circuit.insert(solution.circuit.begin()+bestNeighbour.secondvertex, aux);
-
-                    solution.latency = bestNeighbour.cost;
+                    reInsertionMove(solution, bestNeighbour);                    
 
                     fillNeighbourhoods(neighbourhoods);
-
-                    if(bestNeighbour.firstvertex < bestNeighbour.secondvertex) {                        
-                        fillSubseqInfo(solution.circuit, matrizAdj, subseInfo, bestNeighbour.firstvertex);
-                    } else {
-                        fillSubseqInfo(solution.circuit, matrizAdj, subseInfo, bestNeighbour.secondvertex);
-                    }
-
+                    fillSubseqInfo(solution.circuit, matrizAdj, subseInfo, firstVertex(bestNeighbour));
+                    
                 } else {
                     neighbourhoods.erase(neighbourhoods.begin() + neighbourhood);
                 }
@@ -82,36 +61,10 @@ void rvnd(Solution &solution, vector<vector<Subseq>> &subseInfo, double **matriz
 
                 if(bestNeighbour.cost < solution.latency) {
 
-                    if(bestNeighbour.firstvertex > bestNeighbour.secondvertex) {
-
-                        solution.circuit.insert(solution.circuit.begin()+bestNeighbour.secondvertex,
-                                                solution.circuit[bestNeighbour.firstvertex+1]);
-                        
-                        solution.circuit.insert(solution.circuit.begin()+bestNeighbour.secondvertex,
-                                                solution.circuit[bestNeighbour.firstvertex+1]);
-
-                        solution.circuit.erase(solution.circuit.begin() + bestNeighbour.firstvertex+2);
-                        solution.circuit.erase(solution.circuit.begin() + bestNeighbour.firstvertex+2);
-                        
-                        
-                    } else {
-                        solution.circuit.insert(solution.circuit.begin()+bestNeighbour.secondvertex+1, 
-                                                    solution.circuit.begin() +  bestNeighbour.firstvertex,
-                                                    solution.circuit.begin() +  bestNeighbour.firstvertex+2);
-                                                
-                        solution.circuit.erase(solution.circuit.begin() + bestNeighbour.firstvertex);
-                        solution.circuit.erase(solution.circuit.begin() + bestNeighbour.firstvertex);
-                    }
-
-                    solution.latency = bestNeighbour.cost;                                        
+                    orOpt2Move(solution, bestNeighbour);                                        
                     
                     fillNeighbourhoods(neighbourhoods);                    
-                    
-                    if(bestNeighbour.firstvertex < bestNeighbour.secondvertex) {                        
-                        fillSubseqInfo(solution.circuit, matrizAdj, subseInfo, bestNeighbour.firstvertex);
-                    } else {
-                        fillSubseqInfo(solution.circuit, matrizAdj, subseInfo, bestNeighbour.secondvertex);
-                    }
+                    fillSubseqInfo(solution.circuit, matrizAdj, subseInfo, firstVertex(bestNeighbour));
 
                 } else {
                     neighbourhoods.erase(neighbourhoods.begin() + neighbourhood);
@@ -122,40 +75,10 @@ void rvnd(Solution &solution, vector<vector<Subseq>> &subseInfo, double **matriz
 
                 if(bestNeighbour.cost < solution.latency) {
 
-                    if(bestNeighbour.firstvertex > bestNeighbour.secondvertex) {  
-                            
-                        solution.circuit.insert(solution.circuit.begin()+bestNeighbour.secondvertex,
-                                                solution.circuit[bestNeighbour.firstvertex+2]);
-                        
-                        solution.circuit.insert(solution.circuit.begin()+bestNeighbour.secondvertex,
-                                                solution.circuit[bestNeighbour.firstvertex+2]);
-                        
-                        solution.circuit.insert(solution.circuit.begin()+bestNeighbour.secondvertex,
-                                                solution.circuit[bestNeighbour.firstvertex+2]);
-                        
-                        solution.circuit.erase(solution.circuit.begin() + bestNeighbour.firstvertex+3);
-                        solution.circuit.erase(solution.circuit.begin() + bestNeighbour.firstvertex+3);
-                        solution.circuit.erase(solution.circuit.begin() + bestNeighbour.firstvertex+3);
-
-                    } else {
-                        solution.circuit.insert(solution.circuit.begin()+bestNeighbour.secondvertex+1, 
-                                                    solution.circuit.begin() +  bestNeighbour.firstvertex,
-                                                    solution.circuit.begin() +  bestNeighbour.firstvertex+3);
-                                                           
-                        solution.circuit.erase(solution.circuit.begin() + bestNeighbour.firstvertex);
-                        solution.circuit.erase(solution.circuit.begin() + bestNeighbour.firstvertex);
-                        solution.circuit.erase(solution.circuit.begin() + bestNeighbour.firstvertex);
-                    }
-
-                    solution.latency = bestNeighbour.cost;
+                    orOpt3Move(solution, bestNeighbour);
 
                     fillNeighbourhoods(neighbourhoods);
-                    
-                    if(bestNeighbour.firstvertex < bestNeighbour.secondvertex) {                        
-                        fillSubseqInfo(solution.circuit, matrizAdj, subseInfo, bestNeighbour.firstvertex);
-                    } else {
-                        fillSubseqInfo(solution.circuit, matrizAdj, subseInfo, bestNeighbour.secondvertex);
-                    }
+                    fillSubseqInfo(solution.circuit, matrizAdj, subseInfo, firstVertex(bestNeighbour));
 
                 } else {
                     neighbourhoods.erase(neighbourhoods.begin() + neighbourhood);
@@ -167,4 +90,9 @@ void rvnd(Solution &solution, vector<vector<Subseq>> &subseInfo, double **matriz
 
 void fillNeighbourhoods(vector<int> &neighbourhoods) {
     neighbourhoods = {1, 2, 3, 4, 5};
+}
+
+int firstVertex(reOptimization bestNeighbour) {
+    return ((bestNeighbour.firstvertex < bestNeighbour.secondvertex) ? bestNeighbour.firstvertex
+                                                                     : bestNeighbour.secondvertex);
 }
