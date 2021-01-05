@@ -1,27 +1,9 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include "../Headers/structures.h"
 
 #define DEPOT 0
-
-using namespace std;
-
-struct Solution {
-  vector<int> circuit;
-  double latency;
-};
-
-struct Subseq {
-    double time;
-    double cost;
-    double width;
-};
-
-struct reOptimization {
-    double cost;
-    int firstvertex;
-    int secondvertex;
-};
 
 void orOpt3(reOptimization &bestNeighbour, vector<vector<Subseq>> subseqInfo, Solution &solution, double **matrizAdj) {
 

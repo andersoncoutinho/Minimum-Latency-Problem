@@ -4,16 +4,10 @@
 
 using namespace std;
 
-struct Solution {
-    vector<int> circuit;
-    double latency;
-};
-
-void perturb(Solution &solution, int dimension, double **matrizAdj) {
+void perturb(vector<int> &circuit, int dimension, double **matrizAdj) {
 	
 	double cost;
 	int positions[4];
-    vector<int> circuit = solution.circuit;
 	
 	for(int i = 0; i < 4; i++) {
 		positions[i] = rand() % (dimension-4)+1;
@@ -48,7 +42,4 @@ void perturb(Solution &solution, int dimension, double **matrizAdj) {
 		circuit.insert(circuit.begin() + positions[0], circuit[positions[3]]);
 		circuit.erase(circuit.begin() + positions[3]+1);
 	}	
-
-    solution.circuit = circuit;
-
 }

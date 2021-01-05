@@ -15,6 +15,7 @@ CONCERTINCDIR = $(CONCERTDIR)/include
 #############################
 
 #### diretorios com os source files e com os objs files
+INC_DIR = Headers
 SRCDIR = src
 OBJDIR = obj
 #############################

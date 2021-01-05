@@ -1,35 +1,10 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include "../Headers/functions.h"
+
 
 #define DEPOT 0
-
-using namespace std;
-
-struct Solution {
-  vector<int> circuit;
-  double latency;
-};
-
-struct Subseq {
-    double time;
-    double cost;
-    double width;
-};
-
-struct reOptimization {
-    double cost;
-    int firstvertex;
-    int secondvertex;
-};
-
-void fillNeighbourhoods(vector<int> &);
-extern void opt2(reOptimization &, vector<vector<Subseq>>, Solution &, double **);
-extern void hSwap(reOptimization &, vector<vector<Subseq>>, Solution &, double **);
-extern void reInsertion(reOptimization &, vector<vector<Subseq>>, Solution &, double **);
-extern void orOpt2(reOptimization &, vector<vector<Subseq>>, Solution &, double **);
-extern void orOpt3(reOptimization &, vector<vector<Subseq>>, Solution &, double **);
-extern void fillSubseqInfo(vector<int> &, double **, vector<vector<Subseq>> &, int);
 
 void rvnd(Solution &solution, vector<vector<Subseq>> &subseInfo, double **matrizAdj) {
     

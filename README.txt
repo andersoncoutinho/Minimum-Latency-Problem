@@ -11,7 +11,7 @@ To run it you need to open the terminal and type the following command line:
 
 ./run.sh
 
-Inside the benchmark folder there's a "bm.exe" executable that calculates the mean time and mean cost
+Inside the benchmark folder there's a "bmMean" executable that calculates the mean time and mean cost
 of the values in the "bm.txt" file and prints them in a txt file named "bm_final.txt".
 To run it you need to open the terminal and type the following command line:
 

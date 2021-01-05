@@ -1,20 +1,9 @@
 #include <iostream>
 #include <vector>
+#include "../Headers/functions.h"
+
 
 #define DEPOT 0
-
-using namespace std;
-
-struct Solution {
-  vector<int> circuit;
-  double latency;
-};
-
-struct Subseq {
-    double time;
-    double cost;
-    double width;
-};
 
 void fillSubseqInfo(vector<int> &solution, double **matrizAdj, vector<vector<Subseq>> &subseqInfo, int firstVertex) {
 

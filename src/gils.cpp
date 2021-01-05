@@ -1,25 +1,9 @@
 #include <iostream>
 #include <vector>
+#include "../Headers/functions.h"
+
 
 #define DEPOT 0
-
-using namespace std;
-
-struct Solution {
-  vector<int> circuit;
-  double latency;
-};
-
-struct Subseq {
-    double time;
-    double cost;
-    double width;
-};
-
-extern void construction(Solution &, int, double **);
-extern void rvnd(Solution &, vector<vector<Subseq>> &, double **);
-extern void fillSubseqInfo(vector<int> &, double **, vector<vector<Subseq>> &, int);
-extern void perturb(Solution &, int, double **);
 
 void gils(Solution &bestSolution, int maxIteractions, int maxILS, int dimension, double **matrizAdj) {
         
@@ -46,7 +30,7 @@ void gils(Solution &bestSolution, int maxIteractions, int maxILS, int dimension,
                 posSolution = preSolution;
             }
 
-            perturb(posSolution, dimension, matrizAdj);
+            perturb(posSolution.circuit, dimension, matrizAdj);
             fillSubseqInfo(posSolution.circuit, matrizAdj, subseqInfo, DEPOT);
             posSolution.latency = subseqInfo[DEPOT][dimension].cost;
         }

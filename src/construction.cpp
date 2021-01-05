@@ -1,20 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-
-using namespace std;
-
-struct Solution {
-  vector <int> circuit;
-  double latency;
-};
-
-struct InsertionInfo {
-    int insertedVertex;
-    double cost;
-};
-
-bool Compare(InsertionInfo v1, InsertionInfo v2);
+#include "../Headers/functions.h"
 
 void construction(Solution &solution, int dimension, double **matrizAdj) {
 
