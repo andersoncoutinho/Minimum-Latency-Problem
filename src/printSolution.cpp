@@ -10,5 +10,5 @@ void printSolution(Solution solution, chrono::duration<double> executionTime) {
   cout << endl;
   
   printf("Cost: %.0lf\n", solution.latency);
-  cout << "Execution Time: " << executionTime.count() << endl; 
+  cout << "Time: " << executionTime.count() << endl; 
 }
