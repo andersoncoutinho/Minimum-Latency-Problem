@@ -1,22 +1,15 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include "../Headers/structures.h"
-
-#define DEPOT 0
+#include "./Headers/structures.h"
 
 void hSwap(reOptimization &bestNeighbour, vector<vector<Subseq>> subseqInfo, Solution &solution, double **matrizAdj) {
 
-    int bestI, bestJ;
-    double bestCost = __DBL_MAX__;
-    
+    int bestI, bestJ, lastSwitchablevertex = solution.circuit.size()-2;
+    double cost, bestCost = __DBL_MAX__;
     vector<int> circuit = solution.circuit;
-    int lastSwitchablevertex = solution.circuit.size()-2;
-    
-    double cost;
 
     for(int i = 1; i < lastSwitchablevertex; i++) {
-
         for(int j = i + 1; j <= lastSwitchablevertex; j++) {          
 
             if(j == i + 1) {
@@ -67,5 +60,4 @@ void hSwap(reOptimization &bestNeighbour, vector<vector<Subseq>> subseqInfo, Sol
     bestNeighbour.firstvertex = bestI;
     bestNeighbour.secondvertex = bestJ;
     bestNeighbour.cost = bestCost;
-
 }

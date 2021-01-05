@@ -1,8 +1,10 @@
-#include <vector>
 #include <chrono>
 #include "structures.h"
 
 using namespace std;
+
+#ifndef FUNCTIONS_H_INCLUDED
+#define FUNCTIONS_H_INCLUDED
 
 extern bool Compare(InsertionInfo v1, InsertionInfo v2);
 extern void construction(Solution &, int, double **);
@@ -23,3 +25,5 @@ extern void printSolution(Solution , chrono::duration<double>);
 extern void reInsertion(reOptimization &, vector<vector<Subseq>>, Solution &, double **);
 extern void reInsertionMove(Solution &, reOptimization &);
 extern void rvnd(Solution &, vector<vector<Subseq>> &, double **);
+
+#endif 

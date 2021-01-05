@@ -1,6 +1,6 @@
 #include <iostream>
 #include <chrono>
-#include "../Headers/structures.h"
+#include "./Headers/structures.h"
 
 void printSolution(Solution solution, chrono::duration<double> executionTime) {
   

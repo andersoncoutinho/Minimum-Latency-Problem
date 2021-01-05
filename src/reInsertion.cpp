@@ -1,21 +1,15 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include "../Headers/structures.h"
-
-#define DEPOT 0
+#include "./Headers/structures.h"
 
 void reInsertion(reOptimization &bestNeighbour, vector<vector<Subseq>> subseqInfo, Solution &solution, double **matrizAdj) {
 
-    int bestI, bestJ;
-    double bestCost = __DBL_MAX__;
+    int bestI, bestJ, lastSwitchablevertex = solution.circuit.size() - 2;
+    double cost, bestCost = __DBL_MAX__;
     vector<int> circuit = solution.circuit;
-    int lastSwitchablevertex = solution.circuit.size() - 2;
-
-    double cost;
 
     for(int i = 1; i < lastSwitchablevertex-1; i++) {
-
         for(int j = i + 2; j <= lastSwitchablevertex; j++) {
             
             cost = subseqInfo[DEPOT][i-1].cost
@@ -32,10 +26,7 @@ void reInsertion(reOptimization &bestNeighbour, vector<vector<Subseq>> subseqInf
                                                                         +matrizAdj[circuit[j]][circuit[i]]
                                                                         +matrizAdj[circuit[i]][circuit[j+1]])
                     +subseqInfo[j+1][lastSwitchablevertex+1].cost
-                                
                     ;            
-            
-
 
             if(cost < bestCost) {
                 bestI = i;
@@ -46,8 +37,7 @@ void reInsertion(reOptimization &bestNeighbour, vector<vector<Subseq>> subseqInf
     }
     
     for(int i = 5; i <= lastSwitchablevertex; i++) {
-
-        for(int j = i - 4; j > 0; j--) {
+        for(int j = i - 4; j > DEPOT; j--) {
             
             cost = subseqInfo[DEPOT][j-1].cost
                     +subseqInfo[DEPOT][j-1].time + matrizAdj[circuit[j-1]][circuit[i]]
@@ -70,9 +60,7 @@ void reInsertion(reOptimization &bestNeighbour, vector<vector<Subseq>> subseqInf
             }           
         }
     }
-    
     bestNeighbour.firstvertex = bestI;
     bestNeighbour.secondvertex = bestJ;
     bestNeighbour.cost = bestCost;    
-
 }

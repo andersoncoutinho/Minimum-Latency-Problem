@@ -1,21 +1,15 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include "../Headers/structures.h"
-
-#define DEPOT 0
+#include "./Headers/structures.h"
 
 void orOpt3(reOptimization &bestNeighbour, vector<vector<Subseq>> subseqInfo, Solution &solution, double **matrizAdj) {
 
-    int bestI, bestJ;
-    double bestCost = __DBL_MAX__;
+    int bestI, bestJ, lastSwitchablevertex = solution.circuit.size()-2;
+    double cost, bestCost = __DBL_MAX__;
     vector<int> circuit = solution.circuit;
-    int lastSwitchablevertex = solution.circuit.size()-2;
-
-    double cost;
 
     for(int i = 1; i < lastSwitchablevertex - 3; i++) {
-
         for(int j = i + 3; j <= lastSwitchablevertex; j++) {
             
             cost = subseqInfo[DEPOT][i-1].cost
@@ -46,7 +40,7 @@ void orOpt3(reOptimization &bestNeighbour, vector<vector<Subseq>> subseqInfo, So
     
     for(int i = 3; i < lastSwitchablevertex-1; i++) {
 
-        for(int j = i - 1; j > 0; j--) {
+        for(int j = i - 1; j > DEPOT; j--) {
 
             cost = subseqInfo[DEPOT][j-1].cost
                     + subseqInfo[i][i+2].width * (subseqInfo[0][j-1].time + matrizAdj[circuit[j-1]][circuit[i]])
@@ -73,9 +67,7 @@ void orOpt3(reOptimization &bestNeighbour, vector<vector<Subseq>> subseqInfo, So
             }
         }
     }
-    
     bestNeighbour.firstvertex = bestI;
     bestNeighbour.secondvertex = bestJ;
     bestNeighbour.cost = bestCost;
-
 }

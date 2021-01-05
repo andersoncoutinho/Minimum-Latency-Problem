@@ -1,9 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include "../Headers/functions.h"
-
-#define DEPOT 0
+#include "./Headers/functions.h"
 
 void rvnd(Solution &solution, vector<vector<Subseq>> &subseInfo, double **matrizAdj) {
     

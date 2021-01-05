@@ -1,1 +1,1 @@
-obj/printSolution.o: src/printSolution.cpp src/../Headers/structures.h
+obj/printSolution.o: src/printSolution.cpp src/./Headers/structures.h

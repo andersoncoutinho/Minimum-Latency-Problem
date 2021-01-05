@@ -1,14 +1,10 @@
 #include <iostream>
 #include <vector>
-#include "../Headers/functions.h"
-
-
-#define DEPOT 0
+#include "./Headers/functions.h"
 
 void fillSubseqInfo(vector<int> &solution, double **matrizAdj, vector<vector<Subseq>> &subseqInfo, int firstVertex) {
 
     int lastVertex = solution.size() - 1;
-    double time, cost, width;
 
     for(int i = firstVertex; i <= lastVertex; i++) {        
         subseqInfo[i][i].time = subseqInfo[i][i].cost = 0;

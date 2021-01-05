@@ -1,8 +1,6 @@
 #include <iostream>
 #include <vector>
-#include "../Headers/functions.h"
-
-#define DEPOT 0
+#include "./Headers/functions.h"
 
 void gils(Solution &bestSolution, int maxIteractions, int maxILS, int dimension, double **matrizAdj) {
         

@@ -1,6 +1,6 @@
 #include <iostream>
 #include <algorithm>
-#include "../Headers/structures.h"
+#include "./Headers/structures.h"
 
 void opt2Move(Solution &solution, reOptimization &bestNeighbour) {
     reverse(solution.circuit.begin() + bestNeighbour.firstvertex, 
