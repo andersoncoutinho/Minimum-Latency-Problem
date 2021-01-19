@@ -16,3 +16,7 @@ of the values in the "bm.txt" file and prints them in a txt file named "bm_final
 To run it you need to open the terminal and type the following command line:
 
 ./bm.exe
+
+Reference
+
+Silva, M. M.; Subramanian, A.; Vidal, T.; Ochi, L. S. A simple and effective metaheuristic for the Minimum Latency Problem. European Journal of Operational Research, 221, p. 513-520, 2012.
