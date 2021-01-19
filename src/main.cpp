@@ -3,7 +3,7 @@
 #include "./Headers/functions.h"
 
 #define MAX_INTERACTIONS 10 
-#define MAX_ILS ((dimension > 100) ? dimension : 100)
+#define MAX_ILS ((dimension > 100) ? 100 : dimension)
 
 double **matrizAdj;
 int dimension;

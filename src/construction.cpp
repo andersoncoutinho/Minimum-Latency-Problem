@@ -5,7 +5,7 @@
 
 void construction(Solution &solution, int dimension, double **matrizAdj) {
 
-    double alfa = (rand() % 101)/(double) 100;    
+    double alfa = (rand() % 26)/(double) 100;    
     vector<int> circuit;
     vector<int> candidates;
     int lastVertex;
